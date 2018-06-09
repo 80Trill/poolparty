@@ -1,6 +1,4 @@
 build
 node_modules
 .DS_Store
-test
 coverage
-coverage.json
