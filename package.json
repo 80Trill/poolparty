@@ -1,0 +1,42 @@
+{
+  "name": "poolparty",
+  "version": "1.0.0",
+  "description": "A Solidity smart contract for creating pools for ICOs",
+  "main": "index.js",
+  "scripts": {
+    "test": "node $NODE_DEBUG_OPTION ./node_modules/.bin/truffle test",
+    "deploy": "truffle migrate --reset --network $NETWORK"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^4.0.0",
+    "ethjs-abi": "^0.2.1"
+  },
+  "devDependencies": {
+    "babel-polyfill": "^6.23.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-stage-2": "^6.18.0",
+    "babel-preset-stage-3": "^6.17.0",
+    "babel-register": "^6.23.0",
+    "chai": "^4.0.2",
+    "chai-as-promised": "^7.0.0",
+    "chai-bignumber": "^2.0.0",
+    "coveralls": "^3.0.1",
+    "eslint": "^4.19.1",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.12.0",
+    "eslint-plugin-node": "^5.2.1",
+    "eslint-plugin-promise": "^3.8.0",
+    "eslint-plugin-standard": "^3.1.0",
+    "ethereumjs-testrpc": "^6.0.1",
+    "ethereumjs-util": "^5.2.0",
+    "mocha-lcov-reporter": "^1.3.0",
+    "solidity-coverage": "0.5.0",
+    "solium": "^1.1.7",
+    "truffle": "^4.1.11",
+    "truffle-hdwallet-provider": "0.0.3",
+    "zeppelin-solidity": "^1.9.0"
+  }
+}
