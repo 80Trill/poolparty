@@ -1,5 +1,12 @@
-import assertRevert from 'zeppelin-solidity/test/helpers/assertRevert.js';
+import assertRevert from 'openzeppelin-solidity/test/helpers/assertRevert.js';
 import Constants from './TestConstants.js';
+
+const BigNumber = web3.BigNumber;
+
+const should = require('chai')
+    .use(require('chai-as-promised'))
+    .use(require('chai-bignumber')(BigNumber))
+    .should();
 
 
 const CONTRACT = artifacts.require('PoolParty');
@@ -45,6 +52,10 @@ contract('TokenDistribution -- Pool creation with whitelist', function (accounts
 
         it('token balances are updated after each user claims with a 40/40/10/10 contribution ratio', async function () {
 
+            let actualAdmins = await this.pool.getAdminAddressArray();
+            assert.equal(actualAdmins[0], ADMIN_ACCOUNTS[0]);
+            assert.equal(actualAdmins[1], ADMIN_ACCOUNTS[1]);
+
             // Sets the user addresses used in this test
             let USER_ACCOUNTS = [USER_ADMIN_0, USER_ADMIN_1, USER_2, USER_3];
 
@@ -83,7 +94,7 @@ contract('TokenDistribution -- Pool creation with whitelist', function (accounts
             assert(await Constants.checkTokenBalances([USER_ADMIN_0, this.pool.address], [8000, 12000], this.testToken2));
 
             // Other users do their first claim after second vesting period
-            await this.pool.claimAllAddresses();
+            await this.pool.claimManyAddresses(0, USER_ACCOUNTS.length);
             assert(await Constants.checkTokenBalances(USER_ACCOUNTS, [80000, 80000, 20000, 20000], this.testToken));
             assert(await Constants.checkTokenBalances(USER_ACCOUNTS, [8000, 8000, 2000, 2000], this.testToken2));
 
@@ -118,7 +129,7 @@ contract('TokenDistribution -- Pool creation with whitelist', function (accounts
             await this.pool.addToken(this.testToken.address, {from: USER_ADMIN_0});
 
             // Admin calls claim before the tokens are available
-            await this.pool.claimAllAddresses({from: USER_ADMIN_0});
+            await this.pool.claimManyAddresses(0, USER_ACCOUNTS.length);
             assert(await Constants.checkTokenBalances(USER_ACCOUNTS, [0, 0, 0, 0], this.testToken));
 
             // pools contract receives the tokens, checks it was successful
@@ -136,6 +147,10 @@ contract('TokenDistribution -- Pool creation with whitelist', function (accounts
             await this.pool.addToken(this.testToken2.address, {from: USER_ADMIN_0});
             assert(await Constants.checkTokenBalances(USER_ACCOUNTS, [0, 0, 0, 0], this.testToken2));
 
+            // Getting the length of the token address and length of swimmers list is correct.
+            assert.equal(await this.pool.getAmountOfSwimmers(), 4);
+            assert.equal(await this.pool.getAmountOfTokens(), 2);
+
             await this.pool.claimAddress(USER_2, {from: USER_ADMIN_0});
             await this.pool.claimAddress(USER_3, {from: USER_ADMIN_0});
             await this.pool.claimAddress(USER_4, {from: USER_ADMIN_0});
@@ -144,16 +159,24 @@ contract('TokenDistribution -- Pool creation with whitelist', function (accounts
             // Check balances before and after even split reimbursement.
             let refund = 6000;
 
-            let balanceA = await web3.eth.getBalance(USER_2).toNumber();
-            let balanceB = await web3.eth.getBalance(USER_3).toNumber();
-            let balanceC = await web3.eth.getBalance(USER_4).toNumber();
+            let balanceA = await web3.eth.getBalance(USER_2);
+            let balanceB = await web3.eth.getBalance(USER_3);
+            let balanceC = await web3.eth.getBalance(USER_4);
 
             // Reimbursement of 6000 wei to the pool contributors
-            await this.pool.projectRefund({from: USER_ADMIN_0, gas: Constants.baseGasAmount, value: refund});
+            await this.pool.projectReimbursement({from: USER_ADMIN_0, gas: Constants.baseGasAmount, value: refund});
 
-            let balanceAfterWithdrawA = await web3.eth.getBalance(USER_2).toNumber();
-            let balanceAfterWithdrawB = await web3.eth.getBalance(USER_3).toNumber();
-            let balanceAfterWithdrawC = await web3.eth.getBalance(USER_4).toNumber();
+            // Should revert if the indexs are out of bounds of the array
+            await assertRevert(this.pool.claimManyReimbursements(USER_ACCOUNTS.length, 1, {from: USER_ADMIN_0}));
+            await assertRevert(this.pool.claimManyReimbursements(0, USER_ACCOUNTS.length + 1, {from: USER_ADMIN_0}));
+            await assertRevert(this.pool.claimManyReimbursements(USER_ACCOUNTS.length, 1, {from: USER_ADMIN_0}));
+
+            // Call claimManyReimbursements on valid array bounds
+            await this.pool.claimManyReimbursements(0, USER_ACCOUNTS.length, {from: USER_ADMIN_0});
+
+            let balanceAfterWithdrawA = await web3.eth.getBalance(USER_2);
+            let balanceAfterWithdrawB = await web3.eth.getBalance(USER_3);
+            let balanceAfterWithdrawC = await web3.eth.getBalance(USER_4);
 
             let diffA = (balanceAfterWithdrawA - balanceA);
             let diffB = (balanceAfterWithdrawB - balanceB);
@@ -163,9 +186,22 @@ contract('TokenDistribution -- Pool creation with whitelist', function (accounts
             assert.equal(diffB, refund/3);
             assert.equal(diffC, refund/3);
 
+            refund = refund*2;
+            // Reimbursement claims individually
+            await this.pool.projectReimbursement({from: USER_ADMIN_0, gas: Constants.baseGasAmount, value: refund});
+
+            await this.pool.claimReimbursement(USER_2, {from: USER_5});
+
+            assert.equal(await this.pool.swimmerReimbursements(USER_2), 6000);
+
             // Try to set maxAllocation, and it should revert and not change.
             await assertRevert(this.pool.setMaxAllocation(11000, {from: USER_ADMIN_0}));
             assert.equal(await this.pool.maxAllocation(), 10000);
+
+            //  Reimburse some more money!
+            await this.pool.projectReimbursement({from: USER_ADMIN_0, gas: Constants.baseGasAmount, value: refund});
+            await this.pool.reimbursement({from: USER_2});
+            assert.equal(await this.pool.swimmerReimbursements(USER_2), 10000);
         });
 
         it('token balances are updated after each user claims with a 10/10/10/10/10/10 contribution ratio', async function () {
@@ -255,7 +291,7 @@ contract('TokenDistribution -- Pool creation with custom configs', function (acc
         2000, //MAX_ALLOCATION
         2, //MIN_CONTRIBUTION
         1000, //MAX_CONTRIBUTION
-        5, //ADMIN_FEE_PERCENTAGE_DECIMALS
+        5, //ADMIN_FEE_PERCENT_DECIMALS
         576300// ADMIN_FEE_PERCENTAGE 5.76300%
     ];
 
@@ -352,7 +388,7 @@ contract('TokenDistribution -- Pool creation with custom configs including admin
         2000, //MAX_ALLOCATION
         2, //MIN_CONTRIBUTION
         1000, //MAX_CONTRIBUTION
-        5, //ADMIN_FEE_PERCENTAGE_DECIMALS
+        5, //ADMIN_FEE_PERCENT_DECIMALS
         576300// ADMIN_FEE_PERCENTAGE 5.76300%
     ];
 
@@ -379,7 +415,6 @@ contract('TokenDistribution -- Pool creation with custom configs including admin
         });
 
         it('token balances are updated after each user claims', async function () {
-
             // Transfer the user's wei to the pool
             await Constants.sendWeiToContract(WHITE_LIST_USERS, [USER_0_WEI, USER_1_WEI, USER_2_WEI, USER_3_WEI, USER_4_WEI]);
 
@@ -387,9 +422,55 @@ contract('TokenDistribution -- Pool creation with custom configs including admin
             await this.pool.setPoolToClosed({from: ADMIN_0});
             await this.pool.transferWei(TOKEN_HOLDER_ADMIN, {from: ADMIN_0});
 
-            assert(await Constants.checkPoolBalances(WHITE_LIST_USERS, [106, 31, 17, 148, 82]));
+            // Admin calls the addToken method
+            await this.pool.addToken(this.testToken.address, {from: ADMIN_0});
+
+            // pools contract receives the tokens, checks it was successful
+            await this.testToken.transfer(this.pool.address, 100000, {from: TOKEN_HOLDER_ADMIN});
+
+            // User successfully claims tokens
+            await this.pool.claim({from: USER_0});
+
+            // Pools contract receives 100000 more tokens
+            await this.testToken.transfer(this.pool.address, 100000, {from: TOKEN_HOLDER_ADMIN});
+
+            // User claims tokens after second vesting period, and checks balances
+            await Constants.claimTokens(WHITE_LIST_USERS, {from: ADMIN_0});
+            await Constants.claimTokens([ADMIN_0], {from: ADMIN_0});
+            assert(await Constants.checkTokenBalances([this.pool.address], [992], this.testToken)); // 1982 is the total rounding error
+
+            assert(await Constants.checkTokenBalances(WHITE_LIST_USERS, [51980, 14851, 7920, 72772, 40099], this.testToken)); // hand calculated these numbers
+            //assert(await Constants.checkTokenBalances([ADMIN_0], [9900], this.testToken));
+            assert(await Constants.checkTokenBalances([ADMIN_0], [11386], this.testToken));
+
+            //assert.equal(52475 + 15346 + 8415 + 73267 + 40594 + 9900 + 3, 200000, 'Total token values do not add up to original amount sent');
+            assert.equal(51980 + 14851 + 7920 + 72772 + 40099 + 11386 + 992, 200000, 'Total token values do not add up to original amount sent');
+        });
+    });
+
+    describe('when admin calls transferWei, and then addToken', function () {
+
+        beforeEach(async function () {
+
+            await this.pool.addAddressesToWhitelist(WHITE_LIST_USERS, {from: ADMIN_0});
+        });
+
+        it('token balances are updated after each user claims', async function () {
+
+            // Transfer the user's wei to the pool
+            await Constants.sendWeiToContract(WHITE_LIST_USERS, [USER_0_WEI, USER_1_WEI, USER_2_WEI, USER_3_WEI, USER_4_WEI]);
+
+            // Owner participates, then immediately refunds themselves
+            await this.pool.deposit(ADMIN_0, {from: ADMIN_0, value: 100});
+            await this.pool.refund({from: ADMIN_0});
+
+            // Admin closes the pool and transfers wei to erc20 contract
+            await this.pool.setPoolToClosed({from: ADMIN_0});
+            await this.pool.transferWei(TOKEN_HOLDER_ADMIN, {from: ADMIN_0});
+
+            //assert(await Constants.checkPoolBalances(WHITE_LIST_USERS, [106, 31, 17, 148, 82]));
             assert.equal(await this.pool.weiRaised(), 404, 'the weiRaised_ was not set properly');
-            assert.equal(await this.pool.adminWeiFee(), 20 , 'the adminWeiFee_ was not calculated correctly');
+            assert.equal(await this.pool.adminWeiFee(), 23 , 'the adminWeiFee_ was not calculated correctly');
 
             // Admin calls the addToken method
             await this.pool.addToken(this.testToken.address, {from: ADMIN_0});
@@ -402,12 +483,13 @@ contract('TokenDistribution -- Pool creation with custom configs including admin
 
             // User successfully claims tokens
             let totalTokens = await this.testToken.balanceOf(this.pool.address);
+            await this.pool.claim({from: USER_0});
+
             let userBalance = await this.pool.swimmers(USER_0);
             let totalWei = await this.pool.weiRaised();
-            await this.pool.claim({from: USER_0});
             let expectedTokenBalance = totalTokens.mul(userBalance).div(totalWei);
             assert(await Constants.checkTokenBalances([USER_0], [expectedTokenBalance.c[0]], this.testToken));
-            assert(await Constants.checkTokenBalances(WHITE_LIST_USERS, [26237, 0, 0, 0, 0], this.testToken));
+            assert(await Constants.checkTokenBalances(WHITE_LIST_USERS, [25990, 0, 0, 0, 0], this.testToken));
 
             // Pools contract receives 100000 more tokens
             await this.testToken.transfer(this.pool.address, 100000, {from: TOKEN_HOLDER_ADMIN});
@@ -415,15 +497,19 @@ contract('TokenDistribution -- Pool creation with custom configs including admin
             // User claims tokens after second vesting period, and checks balances
             await Constants.claimTokens(WHITE_LIST_USERS, {from: ADMIN_0});
             await Constants.claimTokens([ADMIN_0], {from: ADMIN_0});
-            assert(await Constants.checkTokenBalances([this.pool.address], [3], this.testToken)); // 3 is the total rounding error
+            assert(await Constants.checkTokenBalances([this.pool.address], [992], this.testToken)); // 1982 is the total rounding error
 
-            assert(await Constants.checkTokenBalances(WHITE_LIST_USERS, [52475, 15346, 8415, 73267, 40594], this.testToken)); // hand calculated these numbers
-            assert(await Constants.checkTokenBalances([ADMIN_0], [9900], this.testToken));
+            assert(await Constants.checkTokenBalances(WHITE_LIST_USERS, [51980, 14851, 7920, 72772, 40099], this.testToken)); // hand calculated these numbers
+            //assert(await Constants.checkTokenBalances([ADMIN_0], [9900], this.testToken));
+            assert(await Constants.checkTokenBalances([ADMIN_0], [11386], this.testToken));
 
-            assert.equal(52475 + 15346 + 8415 + 73267 + 40594 + 9900 + 3, 200000, 'Total token values do not add up to original amount sent');
+            //assert.equal(52475 + 15346 + 8415 + 73267 + 40594 + 9900 + 3, 200000, 'Total token values do not add up to original amount sent');
+            assert.equal(51980 + 14851 + 7920 + 72772 + 40099 + 11386 + 992, 200000, 'Total token values do not add up to original amount sent');
         });
     });
 });
+
+
 
 
 contract('TokenDistribution -- Pool creation with custom configs', function (accounts) {
@@ -447,7 +533,7 @@ contract('TokenDistribution -- Pool creation with custom configs', function (acc
         500, //MAX_ALLOCATION
         2, //MIN_CONTRIBUTION
         100, //MAX_CONTRIBUTION
-        0, //ADMIN_FEE_PERCENTAGE_DECIMALS
+        0, //ADMIN_FEE_PERCENT_DECIMALS
         0// ADMIN_FEE_PERCENTAGE 0%
     ];
 
@@ -485,22 +571,25 @@ contract('TokenDistribution -- Pool creation with custom configs', function (acc
 
             // Tries to call addToken early, reverts
             await assertRevert(this.pool.addToken(this.testToken.address, {from: ADMIN_0}));
-            await assertRevert(this.pool.claimAllAddresses({from: USER_0}));
+            await assertRevert(this.pool.claimManyAddresses(0, WHITE_LIST_USERS.length));
 
             assert(await Constants.checkPoolBalances(WHITE_LIST_USERS, [100, 100, 100, 100, 100]));
 
             // Reduces the maxAllocation to 400
             await this.pool.setMaxAllocation(400, {from: ADMIN_0});
 
+            // Should revert when weiRaised is above max allocation and someone tries to contribute
+            await assertRevert(Constants.sendWeiToContractDefault(WHITE_LIST_USERS));
+
             // Admin closes the pool and transfers wei to erc20 contract
             await this.pool.setPoolToClosed({from: ADMIN_0});
             await this.pool.transferWei(TOKEN_HOLDER_ADMIN, {from: ADMIN_0});
+            assert.equal(await this.pool.reimbursementTotal(), 100);
 
             // User tries to claim refund after pool has closed, reverts
             await assertRevert(this.pool.refund({from: USER_0}));
 
-            assert(await Constants.checkPoolBalances(WHITE_LIST_USERS, [80, 80, 80, 80, 80]));
-            assert.equal(await this.pool.weiRaised(), 400, 'the weiRaised_ was not set properly');
+            assert.equal(await this.pool.weiRaised(), 500, 'the weiRaised_ was not set properly');
             assert.equal(await this.pool.adminWeiFee(), 0, 'the adminWeiFee_ was not calculated correctly');
 
             // Admin calls the addToken method
@@ -514,16 +603,16 @@ contract('TokenDistribution -- Pool creation with custom configs', function (acc
 
             // User successfully claims tokens
             let totalTokens = await this.testToken.balanceOf(this.pool.address);
-            let userBalance = await this.pool.swimmers(USER_0);
             let totalWei = await this.pool.weiRaised();
             await this.pool.claim({from: USER_0});
+            let userBalance = await this.pool.swimmers(USER_0);
             let expectedTokenBalance = totalTokens.mul(userBalance).div(totalWei);
             assert(await Constants.checkTokenBalances([USER_0], [expectedTokenBalance.c[0]], this.testToken));
             assert(await Constants.checkTokenBalances(WHITE_LIST_USERS, [20000, 0, 0, 0, 0], this.testToken));
 
             // Remove token address
             await this.pool.removeToken(this.testToken.address, {from: ADMIN_0});
-            await assertRevert(this.pool.claimAllAddresses());
+            await assertRevert(this.pool.claimManyAddresses(0, WHITE_LIST_USERS.length));
 
             // Token list is now empty.
             await assertRevert(this.pool.removeToken(this.testToken.address, {from: ADMIN_0}));
@@ -535,7 +624,7 @@ contract('TokenDistribution -- Pool creation with custom configs', function (acc
             assert.equal(await this.pool.tokenAddress(1), this.testTokenB.address);
             assert.equal(await this.pool.tokenAddress(2), this.testTokenC.address);
 
-            await await this.pool.claimAllAddresses();
+            await await this.pool.claimManyAddresses(0, WHITE_LIST_USERS.length);
 
             await assertRevert(this.pool.removeToken(this.testTokenA.address, {from: USER_4}));
             await this.pool.removeToken(this.testTokenA.address, {from: ADMIN_0});
@@ -586,7 +675,7 @@ contract('TokenDistribution -- Pool creation with custom configs', function (acc
         500, //MAX_ALLOCATION
         2, //MIN_CONTRIBUTION
         100, //MAX_CONTRIBUTION
-        0, //ADMIN_FEE_PERCENTAGE_DECIMALS
+        0, //ADMIN_FEE_PERCENT_DECIMALS
         0// ADMIN_FEE_PERCENTAGE 0%
     ];
 
@@ -618,7 +707,7 @@ contract('TokenDistribution -- Pool creation with custom configs', function (acc
             await assertRevert(this.pool.transferWei(TOKEN_HOLDER_ADMIN, {from: ADMIN_0}));
             await this.pool.setPoolToOpen({from: ADMIN_0});
 
-            // Attempt deposits that break do not abide by the pool configurations
+            // Attempt deposits that break / do not abide by the pool configurations
             await assertRevert(this.pool.deposit([USER_0], {from: ADMIN_0, value: 0}));
             await assertRevert(this.pool.deposit([USER_0], {from: ADMIN_0, value: 501}));
             await assertRevert(this.pool.deposit([USER_0], {from: ADMIN_0, value: 101}));
@@ -632,7 +721,7 @@ contract('TokenDistribution -- Pool creation with custom configs', function (acc
             await this.pool.setPoolToCancelled({from: ADMIN_0});
 
             // Admin refunds everyone
-            await this.pool.refundAll({from: ADMIN_0});
+            await this.pool.refundManyAddresses(0, WHITE_LIST_USERS.length, {from: ADMIN_0});
             assert(await Constants.checkPoolBalances(WHITE_LIST_USERS, [0, 0, 0, 0, 0]));
         });
     });
@@ -651,6 +740,8 @@ contract('TokenDistribution -- Pool creation with custom configs', function (acc
 
     const TOKEN_HOLDER_ADMIN = accounts[8];
 
+    const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
+
     const WHITE_LIST_USERS = [USER_0, USER_1, USER_2, USER_3, USER_4];
     const ADMIN_ACCOUNTS = [ADMIN_0, ADMIN_1];
 
@@ -659,7 +750,7 @@ contract('TokenDistribution -- Pool creation with custom configs', function (acc
         10, //MAX_ALLOCATION
         2, //MIN_CONTRIBUTION
         5, //MAX_CONTRIBUTION
-        5, //ADMIN_FEE_PERCENTAGE_DECIMALS
+        5, //ADMIN_FEE_PERCENT_DECIMALS
         1// ADMIN_FEE_PERCENTAGE 0%
     ];
 
@@ -685,6 +776,18 @@ contract('TokenDistribution -- Pool creation with custom configs', function (acc
         beforeEach(async function () {
             // Adds addresses to whitelist
             await this.pool.addAddressesToWhitelist(WHITE_LIST_USERS, {from: ADMIN_0});
+        });
+
+        it('total supply of mock token is updated', async function () {
+            assert.equal(await this.testToken.totalSupply(), 1000000);
+        });
+
+        it('reverts when token is send to address 0x0', async function () {
+            await assertRevert(this.testToken.transfer(ZERO_ADDRESS, 10));
+        });
+
+        it('reverts when owner doesnt have enough tokens to transfer', async function () {
+            await assertRevert(this.testToken.transfer(USER_1, 1000001));
         });
 
         it('admin fee payout is equal to 0 even with a percentage fee', async function () {
@@ -714,12 +817,103 @@ contract('TokenDistribution -- Pool creation with custom configs', function (acc
             await this.pool.setPoolToClosed({from: ADMIN_0});
             await assertRevert(this.pool.transferWei(TOKEN_HOLDER_ADMIN, {from: ADMIN_1}));
             await this.pool.transferWei(TOKEN_HOLDER_ADMIN, {from: ADMIN_0});
-            await assertRevert(this.pool.refundAll({from: ADMIN_0}));
+            await assertRevert(this.pool.refundManyAddresses(0, WHITE_LIST_USERS.length, {from: ADMIN_0}));
 
             // Admin calls the addToken method
             await this.pool.addToken(this.testTokenBad.address, {from: ADMIN_0});
 
-            await assertRevert(this.pool.claimAllAddresses());
+            await assertRevert(this.pool.claimManyAddresses(0, WHITE_LIST_USERS.length));
+            await assertRevert(this.pool.refundAddress(USER_1, {from: ADMIN_0}));
+
+            let x = await this.pool.getTokenAddressArray();
+            let y = await this.pool.getSwimmersListArray();
+
+            assert.equal(USER_0, y[0]);
+            assert.equal(USER_1, y[1]);
+            assert.equal(USER_2, y[2]);
+            assert.equal(USER_3, y[3]);
+            assert.equal(USER_4, y[4]);
+            assert.equal(x.length, 1);
+            assert.equal(y.length, 5);
+
+        });
+    });
+});
+
+contract('TokenDistribution -- users who have been refunded shouldnt block claim all methods from happening', function (accounts) {
+
+    const ADMIN_0 = accounts[0];
+
+    const USER_0 = accounts[2];
+    const USER_1 = accounts[3];
+    const USER_2 = accounts[4];
+
+
+    const TOKEN_HOLDER_ADMIN = accounts[8];
+
+    const ADMIN_ACCOUNTS = [ADMIN_0];
+
+    // These are the Test Pool Configs
+    const CONFIGS_UINT256 = [
+        100000000000000000, //MAX_ALLOCATION
+        0, //MIN_CONTRIBUTION
+        500000000000, //MAX_CONTRIBUTION
+        0, //ADMIN_FEE_PERCENT_DECIMALS
+        10// ADMIN_FEE_PERCENTAGE 0%
+    ];
+
+    const CONFIGS_BOOL = [false, true];
+
+    beforeEach(async function () {
+
+        // Sets up a PoolParty contract
+        this.contract = await CONTRACT.new();
+
+        // Sets up a Pool contract with whitelist enabled
+        this.pool = await Constants.createCustomPool(this.contract, CONFIGS_UINT256, CONFIGS_BOOL, ADMIN_ACCOUNTS);
+
+        // Initialises a mock token to test transfer functions, with TOKEN_HOLDER_ADMIN
+        this.testToken = await BASICTOKEN.new(this.pool.address, 1000000000);
+
+    });
+
+    describe('when admin adds users to whitelist', function () {
+
+
+        it('admin fee payout is equal to 0 even with a percentage fee', async function () {
+
+            // Transfer the user's wei to the pool
+            await Constants.sendWeiToContract([USER_0, USER_1, USER_2, ADMIN_0], [1, 500, 500, 300000000]);
+            await this.pool.refund({from: USER_1});
+
+
+            // Admin closes the pool and transfers wei to erc20 contract
+            await this.pool.setPoolToClosed({from: ADMIN_0});
+            await this.pool.transferWei(TOKEN_HOLDER_ADMIN, {from: ADMIN_0});
+
+            await this.pool.projectReimbursement({from: ADMIN_0, value: 100000});
+
+            await this.pool.claimManyReimbursements(0, 4);
+
+            // Admin calls the addToken method
+            await this.pool.addToken(this.testToken.address, {from: ADMIN_0});
+
+            await this.pool.claimManyAddresses(0, 4);
+
+            let testa = await this.testToken.balanceOf(this.pool.address);
+            let testb = await this.testToken.balanceOf(USER_0);
+            let testc = await this.testToken.balanceOf(USER_1);
+            let testd = await this.testToken.balanceOf(USER_2);
+            let teste = await this.testToken.balanceOf(ADMIN_0);
+
+            //console.log(testa);
+            //console.log(testb);
+            //console.log(testc);
+            //console.log(testd);
+            //console.log(teste);
+            //console.log(2997005 + 448551448 + 448551448 + 99900099)
+
+
         });
     });
 });

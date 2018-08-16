@@ -1,6 +1,6 @@
 module.exports = {
     //copyNodeModules: true
-    copyPackages:  ['zeppelin-solidity'],
+    copyPackages:  ['openzeppelin-solidity'],
     norpc: true,
     skipFiles: [
         'Migrations.sol',

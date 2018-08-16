@@ -1,4 +1,4 @@
-pragma solidity ^0.4.23;
+pragma solidity 0.4.24;
 
 
 import "./Config.sol";
@@ -10,30 +10,43 @@ contract Whitelist is Config {
 
     /// @dev Checks to see if the pool whitelist is enabled.
     modifier isWhitelistEnabled() {
-        require(hasWhitelist); // Pool is not whitelisted!
+        // Pool is not whitelisted!
+        require(hasWhitelist);
         _;
     }
 
     /// @dev If the pool is whitelisted, verifies the user is whitelisted.
     modifier canDeposit(address _user) {
         if (hasWhitelist) {
-            require(whitelist[_user] != false); // User is not whitelisted!
+            // User is not whitelisted!
+            require(whitelist[_user] != false);
         }
         _;
     }
 
     /// @notice Adds a list of addresses to this pools whitelist.
-    /// @dev Requires that the msg.sender is an admin, and that the pool has the white list configuration enabled.
+    /// @dev Forwards a call to the internal method.
+    /// Requires:
+    ///     - Msg.sender is an admin
     /// @param _users The list of addresses to add to the whitelist.
     function addAddressesToWhitelist(address[] _users) public isAdmin {
         addAddressesToWhitelistInternal(_users);
     }
 
-    /// @dev The internal version of adding addresses to the whitelist. This is called directly when initializing
-    /// the pool from the poolParty.
+    /// @dev The internal version of adding addresses to the whitelist.
+    /// This is called directly when initializing the pool from the poolParty.
+    /// Requires:
+    ///     - The white list configuration enabled
     /// @param _users The list of addresses to add to the whitelist.
-    function addAddressesToWhitelistInternal(address[] _users) internal isWhitelistEnabled {
-        require(_users.length > 0); // Cannot add an empty list to whitelist!
+    function addAddressesToWhitelistInternal(
+        address[] _users
+    )
+        internal
+        isWhitelistEnabled
+    {
+        // Cannot add an empty list to whitelist!
+        require(_users.length > 0);
+
         for (uint256 i = 0; i < _users.length; ++i) {
             whitelist[_users[i]] = true;
         }

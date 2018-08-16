@@ -1,4 +1,4 @@
-import assertRevert from 'zeppelin-solidity/test/helpers/assertRevert.js';
+import assertRevert from 'openzeppelin-solidity/test/helpers/assertRevert.js';
 import Constants from './TestConstants.js';
 
 
@@ -99,12 +99,12 @@ contract('PoolParty -- Pool Creation without whitelist', function (accounts) {
         });
 
         it('reverts when admin fee percentage decimals are greater than the fee perentage decimal cap', async function () {
-            this.baseConfigsUint256[Constants.OptionUint256.ADMIN_FEE_PERCENTAGE_DECIMALS] = await this.pool.FEE_PERCENTAGE_DECIMAL_CAP() + 1;
+            this.baseConfigsUint256[Constants.OptionUint256.ADMIN_FEE_PERCENT_DECIMALS] = await this.pool.FEE_PERCENTAGE_DECIMAL_CAP() + 1;
             await assertRevert(this.contract.createPool(ADMIN_ACCOUNTS, this.baseConfigsUint256, this.baseConfigsBool));
         });
 
         it('reverts when admin fee percentage is greater than 100', async function () {
-            this.baseConfigsUint256[Constants.OptionUint256.ADMIN_FEE_PERCENTAGE_DECIMALS] = 0;
+            this.baseConfigsUint256[Constants.OptionUint256.ADMIN_FEE_PERCENT_DECIMALS] = 0;
             this.baseConfigsUint256[Constants.OptionUint256.ADMIN_FEE_PERCENTAGE] = 101;
             await assertRevert(this.contract.createPool(ADMIN_ACCOUNTS, this.baseConfigsUint256, this.baseConfigsBool));
         });

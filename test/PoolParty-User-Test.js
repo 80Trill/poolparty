@@ -1,4 +1,4 @@
-import assertRevert from 'zeppelin-solidity/test/helpers/assertRevert.js';
+import assertRevert from 'openzeppelin-solidity/test/helpers/assertRevert.js';
 import Constants from './TestConstants.js';
 
 

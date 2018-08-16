@@ -1,4 +1,4 @@
-pragma solidity ^0.4.23;
+pragma solidity 0.4.24;
 
 
 import "./Admin.sol";
@@ -34,49 +34,57 @@ contract State is Admin {
 
     /// @dev Verifies the pool is in the OPEN state.
     modifier isOpen() {
-        require(state == PoolState.OPEN); // Pool is not set to open!
+        // Pool is not set to open!
+        require(state == PoolState.OPEN);
         _;
     }
 
     /// @dev Verifies the pool is in the CLOSED state.
     modifier isClosed() {
-        require(state == PoolState.CLOSED); // Pool is not closed!
+        // Pool is not closed!
+        require(state == PoolState.CLOSED);
         _;
     }
 
     /// @dev Verifies the pool is in the OPEN or CLOSED state.
     modifier isOpenOrClosed() {
-        require(state == PoolState.OPEN || state == PoolState.CLOSED); // Pool is not cancelable!
+        // Pool is not cancelable!
+        require(state == PoolState.OPEN || state == PoolState.CLOSED);
         _;
     }
 
     /// @dev Verifies the pool is CANCELLED.
     modifier isCancelled() {
-        require(state == PoolState.CANCELLED); // Pool is not cancelled!
+        // Pool is not cancelled!
+        require(state == PoolState.CANCELLED);
         _;
     }
 
     /// @dev Verifies the user is able to call a refund.
     modifier isUserRefundable() {
-        require(state == PoolState.OPEN || state == PoolState.CANCELLED); // Pool is not user refundable!
+        // Pool is not user refundable!
+        require(state == PoolState.OPEN || state == PoolState.CANCELLED);
         _;
     }
 
     /// @dev Verifies an admin is able to call a refund.
     modifier isAdminRefundable() {
-        require(state == PoolState.OPEN ||state == PoolState.CLOSED || state == PoolState.CANCELLED); // Pool is not admin refundable!
+        // Pool is not admin refundable!
+        require(state == PoolState.OPEN || state == PoolState.CLOSED || state == PoolState.CANCELLED);  // solium-disable-line max-len
         _;
     }
 
     /// @dev Verifies the pool is in the COMPLETED or AWAITING_TOKENS state.
     modifier isAwaitingOrCompleted() {
-        require(state == PoolState.COMPLETED || state == PoolState.AWAITING_TOKENS); // Pool is not awaiting or completed!
+        // Pool is not awaiting or completed!
+        require(state == PoolState.COMPLETED || state == PoolState.AWAITING_TOKENS);
         _;
     }
 
     /// @dev Verifies the pool is in the COMPLETED state.
     modifier isCompleted() {
-        require(state == PoolState.COMPLETED); // Pool is not completed!
+        // Pool is not completed!
+        require(state == PoolState.COMPLETED);
         _;
     }
 

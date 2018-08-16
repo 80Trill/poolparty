@@ -1,4 +1,8 @@
 build
 node_modules
+coverage
+coverageEnv
+allFiredEvents
+coverage.json
 .DS_Store
 coverage

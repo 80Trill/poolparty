@@ -16,7 +16,7 @@ TestConstants.OptionUint256 = {
     MAX_ALLOCATION: 0,
     MIN_CONTRIBUTION: 1,
     MAX_CONTRIBUTION: 2,
-    ADMIN_FEE_PERCENTAGE_DECIMALS: 3,
+    ADMIN_FEE_PERCENT_DECIMALS: 3,
     ADMIN_FEE_PERCENTAGE: 4
 };
 
@@ -38,7 +38,7 @@ TestConstants.getBaseConfigsUint256 = function () {
     return [1000, //MAX_ALLOCATION
         2, //MIN_CONTRIBUTION
         75, //MAX_CONTRIBUTION
-        5, //ADMIN_FEE_PERCENTAGE_DECIMALS
+        5, //ADMIN_FEE_PERCENT_DECIMALS
         500000// ADMIN_FEE_PERCENTAGE 5%
     ];
 };
@@ -157,7 +157,10 @@ TestConstants.sendWeiToContractDefault = async function (accounts) {
 TestConstants.checkPoolBalances = async function (accounts, balances) {
 
     for (let i = 0; i < accounts.length; ++i) {
-        if (await TestConstants.poolContract.swimmers(accounts[i]) != balances[i]){
+
+        let actual = await TestConstants.poolContract.swimmers(accounts[i]);
+        let expected = balances[i];
+        if (actual != expected){
             return false;
         }
     }
