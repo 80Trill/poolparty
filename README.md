@@ -63,11 +63,11 @@ The `configsBool` array is an ordered list of boolean configurations for the poo
 
 ## DAPP Integration
 There are five methods used strictly for the DAPP:
-    -getTokenAddressArray() - returns a list of all the token addresses corresponding with this pool.
-    -getAmountOfTokens() - returns the amount of tokens addresses corresponding with this pool.
-    -getSwimmersListArray() - returns a list of all the swimmers addresses corresponding with this pool.
-    -getAmountOfSwimmers() - returns the amount of swimmer addresses corresponding with this pool.
-    -getadminAddressArray() - returns the admins addresses corresponding with this pool.
+- getTokenAddressArray() - returns a list of all the token addresses corresponding with this pool.
+- getAmountOfTokens() - returns the amount of tokens addresses corresponding with this pool.
+- getSwimmersListArray() - returns a list of all the swimmers addresses corresponding with this pool.
+- getAmountOfSwimmers() - returns the amount of swimmer addresses corresponding with this pool.
+- getadminAddressArray() - returns the admins addresses corresponding with this pool.
 
 ## Libraries Used
 The following OpenZeppelin Solidity contracts were used in this project:
