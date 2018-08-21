@@ -79,14 +79,11 @@ contract('USER -- Pool Creation with whitelist', function (accounts) {
 
             // Verifies the amount withdrawn is equal to the difference between the amount sent to contract
             let balance = await ethGetBalance(USER_2);
-            console.log(balance);
             await this.pool.refundAddress(USER_2,{from: USER_ADMIN_0});
 
             assert(await Constants.checkPoolBalances([USER_2], [0]));
             let balanceAfterWithdraw = await ethGetBalance(USER_2);
-            console.log(balanceAfterWithdraw)
             let diff = balanceAfterWithdraw.minus(balance);
-            console.log(diff);
             assert.equal(diff, baseAccountAmount);
 
             // Verify the pool has been emptied

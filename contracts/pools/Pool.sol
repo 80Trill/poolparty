@@ -618,7 +618,7 @@ contract Pool is Whitelist {
         internal
     {
         // @dev The first time a user tries to claim tokens,
-        //they will have the admin fee subtracted from their contribution.
+        // they will have the admin fee subtracted from their contribution.
         // This is the pro-rata portion added to swimmers[owner], in the payoutAdminFee() function.
         if (!adminFeePaid[_user] && adminFeePayoutIsToken && adminFeePercentage > 0) {
             collectAdminFee(_user);
