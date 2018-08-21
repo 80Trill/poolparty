@@ -1,6 +1,7 @@
 import assertRevert from 'openzeppelin-solidity/test/helpers/assertRevert.js';
 import Constants from './TestConstants.js';
 
+const { ethSendTransaction, ethGetBalance } = require('./helpers/web3');
 const BigNumber = web3.BigNumber;
 
 const should = require('chai')
@@ -159,9 +160,9 @@ contract('TokenDistribution -- Pool creation with whitelist', function (accounts
             // Check balances before and after even split reimbursement.
             let refund = 6000;
 
-            let balanceA = await web3.eth.getBalance(USER_2);
-            let balanceB = await web3.eth.getBalance(USER_3);
-            let balanceC = await web3.eth.getBalance(USER_4);
+            let balanceA = await ethGetBalance(USER_2);
+            let balanceB = await ethGetBalance(USER_3);
+            let balanceC = await ethGetBalance(USER_4);
 
             // Reimbursement of 6000 wei to the pool contributors
             await this.pool.projectReimbursement({from: USER_ADMIN_0, gas: Constants.baseGasAmount, value: refund});
@@ -174,13 +175,13 @@ contract('TokenDistribution -- Pool creation with whitelist', function (accounts
             // Call claimManyReimbursements on valid array bounds
             await this.pool.claimManyReimbursements(0, USER_ACCOUNTS.length, {from: USER_ADMIN_0});
 
-            let balanceAfterWithdrawA = await web3.eth.getBalance(USER_2);
-            let balanceAfterWithdrawB = await web3.eth.getBalance(USER_3);
-            let balanceAfterWithdrawC = await web3.eth.getBalance(USER_4);
+            let balanceAfterWithdrawA = await ethGetBalance(USER_2);
+            let balanceAfterWithdrawB = await ethGetBalance(USER_3);
+            let balanceAfterWithdrawC = await ethGetBalance(USER_4);
 
-            let diffA = (balanceAfterWithdrawA - balanceA);
-            let diffB = (balanceAfterWithdrawB - balanceB);
-            let diffC = (balanceAfterWithdrawC - balanceC);
+            let diffA = (balanceAfterWithdrawA.minus(balanceA));
+            let diffB = (balanceAfterWithdrawB.minus(balanceB));
+            let diffC = (balanceAfterWithdrawC.minus(balanceC));
 
             assert.equal(diffA, refund/3);
             assert.equal(diffB, refund/3);

@@ -1,48 +1,60 @@
 
 import expectThrow from './helpers/expectThrow';
+const { ethSendTransaction, ethGetBalance } = require('./helpers/web3');
+
+
 import toPromise from './helpers/toPromise';
 const HasNoEtherTest = artifacts.require('PoolParty');
 const ForceEther = artifacts.require('ForceEther');
 
-contract('HasNoEther', function (accounts) {
-  const amount = 100000;
+const BigNumber = web3.BigNumber;
 
-  it('should be constructorable', async function () {
-    await HasNoEtherTest.new();
-  });
+require('chai')
+    .use(require('chai-bignumber')(BigNumber))
+    .should();
 
-  it('should allow owner to reclaim ether', async function () {
-    // Create contract
-    let hasNoEther = await HasNoEtherTest.new();
-    const startBalance = await web3.eth.getBalance(hasNoEther.address);
-    assert.equal(startBalance, 0);
+contract('HasNoEther', function ([_, owner, anyone]) {
+    const amount = web3.toWei('1000', 'ether');
 
-    // Force ether into it
-    let forceEther = await ForceEther.new({ value: amount });
-    await forceEther.destroyAndSend(hasNoEther.address);
-    const forcedBalance = await web3.eth.getBalance(hasNoEther.address);
-    assert.equal(forcedBalance, amount);
+    beforeEach(async function () {
+        this.hasNoEther = await HasNoEtherTest.new({ from: owner });
+    });
 
-    // Reclaim
-    const ownerStartBalance = await web3.eth.getBalance(accounts[0]);
-    await hasNoEther.reclaimEther();
-    const ownerFinalBalance = await web3.eth.getBalance(accounts[0]);
-    const finalBalance = await web3.eth.getBalance(hasNoEther.address);
-    assert.equal(finalBalance, 0);
-    assert.isAbove(ownerFinalBalance.c[0], ownerStartBalance.c[0]);
-  });
+    it('should not accept ether', async function () {
+        await expectThrow(
+            ethSendTransaction({
+                from: owner,
+                to: this.hasNoEther.address,
+                value: amount,
+            }),
+        );
+    });
 
-  it('should allow only owner to reclaim ether', async function () {
-    // Create contract
-    let hasNoEther = await HasNoEtherTest.new({ from: accounts[0] });
+    it('should allow owner to reclaim ether', async function () {
+        const startBalance = await ethGetBalance(this.hasNoEther.address);
+        startBalance.should.be.bignumber.equal(0);
 
-    // Force ether into it
-    let forceEther = await ForceEther.new({ value: amount });
-    await forceEther.destroyAndSend(hasNoEther.address);
-    const forcedBalance = await web3.eth.getBalance(hasNoEther.address);
-    assert.equal(forcedBalance, amount);
+        // Force ether into it
+        const forceEther = await ForceEther.new({ value: amount });
+        await forceEther.destroyAndSend(this.hasNoEther.address);
+        (await ethGetBalance(this.hasNoEther.address)).should.be.bignumber.equal(amount);
 
-    // Reclaim
-    await expectThrow(hasNoEther.reclaimEther({ from: accounts[1] }));
-  });
+        // Reclaim
+        const ownerStartBalance = await ethGetBalance(owner);
+        await this.hasNoEther.reclaimEther({ from: owner });
+        const ownerFinalBalance = await ethGetBalance(owner);
+        ownerFinalBalance.should.be.bignumber.gt(ownerStartBalance);
+
+        (await ethGetBalance(this.hasNoEther.address)).should.be.bignumber.equal(0);
+    });
+
+    it('should allow only owner to reclaim ether', async function () {
+        // Force ether into it
+        const forceEther = await ForceEther.new({ value: amount });
+        await forceEther.destroyAndSend(this.hasNoEther.address);
+        (await ethGetBalance(this.hasNoEther.address)).should.be.bignumber.equal(amount);
+
+        // Reclaim
+        await expectThrow(this.hasNoEther.reclaimEther({ from: anyone }));
+    });
 });

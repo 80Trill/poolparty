@@ -1,8 +1,16 @@
 import assertRevert from 'openzeppelin-solidity/test/helpers/assertRevert.js';
 import Constants from './TestConstants.js';
 
+const { ethSendTransaction, ethGetBalance } = require('./helpers/web3');
+
 
 const CONTRACT = artifacts.require('PoolParty');
+
+const BigNumber = web3.BigNumber;
+
+require('chai')
+    .use(require('chai-bignumber')(BigNumber))
+    .should();
 
 
 contract('USER -- Pool Creation with whitelist', function (accounts) {
@@ -45,11 +53,17 @@ contract('USER -- Pool Creation with whitelist', function (accounts) {
             assert(await Constants.checkPoolBalances([USER_2], [baseAccountAmount]));
 
             // Verifies the amount withdrawn is equal to the difference between the amount sent to contract
-            let balance = await web3.eth.getBalance(USER_2).toNumber();
+            let balance = await ethGetBalance(USER_2);
+
             let result = await this.pool.refund({from: USER_2});
-            let gasUsed = result.receipt.gasUsed;
-            let balanceAfterWithdraw = await web3.eth.getBalance(USER_2).toNumber();
-            let diff = (balanceAfterWithdraw - balance + gasUsed);
+
+            let gasUsed = new BigNumber(result.receipt.gasUsed);
+
+            let balanceAfterWithdraw = await ethGetBalance(USER_2);
+
+            let balancePlusGas= (balanceAfterWithdraw.plus(gasUsed));
+            let diff = balancePlusGas.minus(balance);
+
             assert.equal(diff, baseAccountAmount);
 
             // Verify the pool has been emptied
@@ -64,10 +78,15 @@ contract('USER -- Pool Creation with whitelist', function (accounts) {
             assert(await Constants.checkPoolBalances([USER_2], [baseAccountAmount]));
 
             // Verifies the amount withdrawn is equal to the difference between the amount sent to contract
-            let balance = await web3.eth.getBalance(USER_2).toNumber();
+            let balance = await ethGetBalance(USER_2);
+            console.log(balance);
             await this.pool.refundAddress(USER_2,{from: USER_ADMIN_0});
-            let balanceAfterWithdraw = await web3.eth.getBalance(USER_2).toNumber();
-            let diff = (balanceAfterWithdraw - balance);
+
+            assert(await Constants.checkPoolBalances([USER_2], [0]));
+            let balanceAfterWithdraw = await ethGetBalance(USER_2);
+            console.log(balanceAfterWithdraw)
+            let diff = balanceAfterWithdraw.minus(balance);
+            console.log(diff);
             assert.equal(diff, baseAccountAmount);
 
             // Verify the pool has been emptied
@@ -138,25 +157,25 @@ contract('USER -- Pool Creation with whitelist', function (accounts) {
             assert.equal(await this.pool.weiRaised(), baseAccountAmount * 4);
 
             // Gets the balance from before transferWei call
-            let balance = await web3.eth.getBalance(USER_4).toNumber();
+            let balance = await ethGetBalance(USER_4);;
 
             // NonAdmin tries to call transferWei
             await assertRevert(this.pool.transferWei(USER_4, {from: accounts[7]}));
 
             // Admin gets the fee into his account,
             // Verifies the amount withdrawn is equal to the difference between the amount sent to contract
-            let balanceAdmin = await web3.eth.getBalance(USER_ADMIN_0).toNumber();
+            let balanceAdmin = await ethGetBalance(USER_ADMIN_0);
             let resultAdmin = await this.pool.transferWei(USER_4, {from: USER_ADMIN_0});
             let gasUsedAdmin = resultAdmin.receipt.gasUsed;
-            let balanceAfterWithdrawAdmin = await web3.eth.getBalance(USER_ADMIN_0).toNumber();
-            let diffAdmin = (balanceAfterWithdrawAdmin - balanceAdmin + gasUsedAdmin);
+            let balanceAfterWithdrawAdmin = await ethGetBalance(USER_ADMIN_0);
+            let diffAdmin = (balanceAfterWithdrawAdmin.minus(balanceAdmin).plus(gasUsedAdmin));
 
             // check if the difference is == to the admin fee, 5% of 200 in this case
             assert.equal(diffAdmin, 10);
 
             // Verifies the amount transferred is the same amount as weiBalance_
-            let balanceAfterTransfer = await web3.eth.getBalance(USER_4).toNumber();
-            let diff = (balanceAfterTransfer - balance);
+            let balanceAfterTransfer = await ethGetBalance(USER_4);;
+            let diff = (balanceAfterTransfer.minus(balance));
             assert.equal(diff, baseAccountAmount * 4 - diffAdmin);
         });
 

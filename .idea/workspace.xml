@@ -2,33 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="546e62b7-b8e0-4bf4-a9b1-6188378dd8b7" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.node-xmlhttprequest-sync-5523" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.node-xmlhttprequest-sync-554" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.node-xmlhttprequest-sync-5710" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.solcover.js" beforeDir="false" afterPath="$PROJECT_DIR$/.solcover.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LICENSE" beforeDir="false" afterPath="$PROJECT_DIR$/LICENSE" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/contracts/Migrations.sol" beforeDir="false" afterPath="$PROJECT_DIR$/contracts/Migrations.sol" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/contracts/PoolParty.sol" beforeDir="false" afterPath="$PROJECT_DIR$/contracts/PoolParty.sol" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/contracts/mocks/BasicTokenMock.sol" beforeDir="false" afterPath="$PROJECT_DIR$/contracts/mocks/BasicTokenMock.sol" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/contracts/pools/Admin.sol" beforeDir="false" afterPath="$PROJECT_DIR$/contracts/pools/Admin.sol" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/contracts/pools/Config.sol" beforeDir="false" afterPath="$PROJECT_DIR$/contracts/pools/Config.sol" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/contracts/pools/Pool.sol" beforeDir="false" afterPath="$PROJECT_DIR$/contracts/pools/Pool.sol" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/contracts/pools/State.sol" beforeDir="false" afterPath="$PROJECT_DIR$/contracts/pools/State.sol" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/contracts/pools/Whitelist.sol" beforeDir="false" afterPath="$PROJECT_DIR$/contracts/pools/Whitelist.sol" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coverage.json" beforeDir="false" afterPath="$PROJECT_DIR$/coverage.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/runInShell.sh" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/runInShell.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/setup.sh" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/setup.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/test.sh" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/test.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/PoolParty-Creation-Test.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/PoolParty-Creation-Test.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/HasNoEther.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/HasNoEther.test.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/PoolParty-TokenDistribution-Test.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/PoolParty-TokenDistribution-Test.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/PoolParty-User-Test.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/PoolParty-User-Test.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/TestConstants.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/TestConstants.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/truffle-config.js" beforeDir="false" afterPath="$PROJECT_DIR$/truffle-config.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -38,89 +17,129 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="truffle-config.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/truffle-config.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="525">
-              <caret line="35" column="22" selection-start-line="35" selection-start-column="22" selection-end-line="35" selection-end-column="22" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/package.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="27" column="28" lean-forward="true" selection-start-line="27" selection-start-column="28" selection-end-line="27" selection-end-column="28" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PoolParty.sol" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/contracts/PoolParty.sol">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-255">
-              <caret line="11" column="31" selection-start-line="11" selection-start-column="31" selection-end-line="11" selection-end-column="31" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Pool.sol" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/contracts/pools/Pool.sol">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5841">
-              <caret line="533" column="28" lean-forward="true" selection-start-line="533" selection-start-column="28" selection-end-line="533" selection-end-column="28" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PoolParty-User-Test.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test/PoolParty-User-Test.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1826">
-              <caret column="7" selection-start-column="7" selection-end-column="7" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/README.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="64">
-                <caret line="69" column="88" selection-start-line="69" selection-start-column="88" selection-end-line="69" selection-end-column="88" />
-              </first_editor>
-              <second_editor />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="HasNoEther.test.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test/HasNoEther.test.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-259" />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="HasNoTokens.test.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test/HasNoTokens.test.js">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file leaf-file-name="Ownable.test.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test/Ownable.test.js">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file leaf-file-name="Ownable.behaviour.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test/Ownable.behaviour.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-304" />
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <splitter split-orientation="horizontal" split-proportion="0.60874707">
+      <split-first>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/package.json">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="555">
+                  <caret line="37" selection-start-line="37" selection-end-line="37" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="Pool.sol" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/contracts/pools/Pool.sol">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="7995">
+                  <caret line="533" column="28" selection-start-line="533" selection-start-column="28" selection-end-line="533" selection-end-column="28" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="PoolParty-User-Test.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/test/PoolParty-User-Test.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="975">
+                  <caret line="151" column="10" selection-start-line="151" selection-start-column="10" selection-end-line="151" selection-end-column="10" />
+                  <folding>
+                    <element signature="e#0#78#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="PoolParty-TokenDistribution-Test.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/test/PoolParty-TokenDistribution-Test.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="1605">
+                  <caret line="107" column="10" lean-forward="true" selection-start-line="107" selection-start-column="10" selection-end-line="107" selection-end-column="10" />
+                  <folding>
+                    <element signature="e#0#78#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/README.md">
+              <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+                <state split_layout="SPLIT">
+                  <first_editor relative-caret-position="1035">
+                    <caret line="69" selection-start-line="69" selection-end-line="69" />
+                  </first_editor>
+                  <second_editor />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name=".gitignore" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/.gitignore">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="75">
+                  <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="HasNoEther.test.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/test/HasNoEther.test.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="225">
+                  <caret line="15" column="8" selection-start-line="15" selection-start-column="8" selection-end-line="15" selection-end-column="8" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="test.sh" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/scripts/test.sh">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="495">
+                  <caret line="33" column="107" selection-start-line="33" selection-start-column="107" selection-end-line="33" selection-end-column="107" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="web3.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/test/helpers/web3.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="150">
+                  <caret line="10" selection-start-line="10" selection-end-line="10" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="Ownable.behaviour.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/test/Ownable.behaviour.js">
+              <provider selected="true" editor-type-id="text-editor" />
+            </entry>
+          </file>
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf>
+          <file leaf-file-name="HasNoEther.test.js" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/test/HasNoEther.test.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="705">
+                  <caret line="47" column="9" lean-forward="true" selection-start-line="47" selection-start-column="9" selection-end-line="47" selection-end-column="53" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="ethjs-abi.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/node_modules/ethjs-abi/dist/ethjs-abi.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="-8457">
+                  <caret line="4658" column="2" selection-start-line="4658" selection-start-column="2" selection-end-line="4658" selection-end-column="2" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-second>
+    </splitter>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -131,7 +150,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>depositwei</find>
       <find>deposit</find>
       <find>claimalladdres</find>
       <find>payoutOwner</find>
@@ -161,6 +179,7 @@
       <find>++</find>
       <find>uint</find>
       <find>claimAddresses</find>
+      <find>!!!</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -188,11 +207,8 @@
         <option value="$PROJECT_DIR$/scriptsTest/test.sh" />
         <option value="$PROJECT_DIR$/scripts/coverage.sh" />
         <option value="$PROJECT_DIR$/.solcover.js" />
-        <option value="$PROJECT_DIR$/scripts/test.sh" />
         <option value="$PROJECT_DIR$/test/TestConstants.js" />
-        <option value="$PROJECT_DIR$/test/PoolParty-User-Test.js" />
         <option value="$PROJECT_DIR$/test/PoolParty-Creation-Test.js" />
-        <option value="$PROJECT_DIR$/test/PoolParty-TokenDistribution-Test.js" />
         <option value="$PROJECT_DIR$/contracts/pools/Admin.sol" />
         <option value="$PROJECT_DIR$/contracts/PoolParty.sol" />
         <option value="$PROJECT_DIR$/contracts/pools/State.sol" />
@@ -201,9 +217,14 @@
         <option value="$PROJECT_DIR$/truffle-config.js" />
         <option value="$PROJECT_DIR$/contracts/mocks/ERC223TokenMock.sol" />
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/contracts/pools/Pool.sol" />
+        <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/test/helpers/web3.js" />
+        <option value="$PROJECT_DIR$/scripts/test.sh" />
+        <option value="$PROJECT_DIR$/test/HasNoEther.test.js" />
+        <option value="$PROJECT_DIR$/test/PoolParty-User-Test.js" />
+        <option value="$PROJECT_DIR$/test/PoolParty-TokenDistribution-Test.js" />
       </list>
     </option>
   </component>
@@ -221,11 +242,11 @@
       <path value="$PROJECT_DIR$/package.json" />
     </packageJsonPaths>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="215" />
-    <option name="y" value="22" />
-    <option name="width" value="1705" />
-    <option name="height" value="1178" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="53" />
+    <option name="y" value="67" />
+    <option name="width" value="2004" />
+    <option name="height" value="2049" />
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="1" id="Add" />
@@ -235,7 +256,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="AndroidView" />
       <pane id="Scope" />
       <pane id="ProjectPane">
@@ -277,10 +297,17 @@
               <item name="poolparty" type="462c0819:PsiDirectoryNode" />
               <item name="test" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="poolparty" type="b2602c69:ProjectViewProjectNode" />
+              <item name="poolparty" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="helpers" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -321,7 +348,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="npm.setup">
+  <component name="RunManager" selected="npm.coverage">
     <configuration default="true" type="Application" factoryName="Application">
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
     </configuration>
@@ -396,7 +423,7 @@
       <node-interpreter value="project" />
       <envs />
       <method>
-        <option name="ToolBeforeRunTask" enabled="true" actionId="Tool_External Tools_test rpc" />
+        <option name="ToolBeforeRunTask" enabled="true" actionId="Tool_External Tools_poolparty Coverage" />
       </method>
     </configuration>
     <configuration name="setup" type="js.build_tools.npm" factoryName="npm">
@@ -420,7 +447,7 @@
       <node-interpreter value="project" />
       <envs />
       <method>
-        <option name="ToolBeforeRunTask" enabled="true" actionId="Tool_External Tools_coverage" />
+        <option name="ToolBeforeRunTask" enabled="true" actionId="Tool_External Tools_PoolPartyTest" />
       </method>
     </configuration>
     <list>
@@ -471,15 +498,16 @@
       <workItem from="1530831265502" duration="2268000" />
       <workItem from="1533932471207" duration="230000" />
       <workItem from="1534195472563" duration="13000" />
-      <workItem from="1534452528317" duration="1167000" />
+      <workItem from="1534452528317" duration="1920000" />
+      <workItem from="1534876059282" duration="4360000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="201578000" />
+    <option name="totallyTimeSpent" value="206691000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="22" width="1920" height="1178" extended-state="6" />
+    <frame x="53" y="67" width="2004" height="2049" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
@@ -490,12 +518,12 @@
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="right" id="Maven Projects" order="3" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.44746378" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.18025316" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.11927083" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15568863" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -512,17 +540,17 @@
     </layout>
     <layout-to-restore>
       <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
-      <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.21675393" />
       <window_info anchor="right" id="Theme Preview" order="5" />
-      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.09974506" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.21675393" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
       <window_info id="UI Designer" order="4" />
@@ -532,10 +560,10 @@
       <window_info anchor="bottom" id="Terminal" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4413098" />
       <window_info id="Capture Tool" order="5" />
-      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="right" id="Maven Projects" order="8" />
       <window_info id="Favorites" order="6" side_tool="true" />
     </layout-to-restore>
@@ -551,7 +579,15 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="108" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/test/PoolParty-TokenDistribution-Test.js</url>
+          <line>185</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="108" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="109" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="js.build_tools.npm">
@@ -560,6 +596,16 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/test/Ownable.behaviour.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/contracts/pools/Pool.sol">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1800">
@@ -567,13 +613,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/zeppelin-solidity/test/helpers/assertRevert.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="4" selection-start-line="6" selection-start-column="4" selection-end-line="6" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/zeppelin-solidity/test/helpers/assertRevert.js" />
     <entry file="file://$PROJECT_DIR$/../../testProjects/examples/PoolUser.html" />
     <entry file="file://$PROJECT_DIR$/build/contracts/Config.json" />
     <entry file="file://$PROJECT_DIR$/build/contracts/State.json" />
@@ -593,13 +633,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/zeppelin-solidity/contracts/ownership/Ownable.sol">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="630">
-          <caret line="42" selection-start-line="42" selection-end-line="42" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/zeppelin-solidity/contracts/ownership/Ownable.sol" />
     <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="313">
@@ -623,20 +657,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/zeppelin-solidity/contracts/token/ERC20/ERC20Basic.sol">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="9" selection-start-line="8" selection-start-column="9" selection-end-line="8" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/zeppelin-solidity/contracts/token/ERC20/BasicToken.sol">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="660">
-          <caret line="44" column="4" lean-forward="true" selection-start-line="44" selection-start-column="4" selection-end-line="44" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/zeppelin-solidity/contracts/token/ERC20/ERC20Basic.sol" />
+    <entry file="file://$PROJECT_DIR$/node_modules/zeppelin-solidity/contracts/token/ERC20/BasicToken.sol" />
     <entry file="file://$PROJECT_DIR$/scripts/setup.sh">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="810">
@@ -728,30 +750,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/scripts/test.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="885">
-          <caret line="59" selection-start-line="59" selection-end-line="59" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/PoolParty-TokenDistribution-Test.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="16" column="83" selection-start-line="16" selection-start-column="83" selection-end-line="16" selection-end-column="83" />
-          <folding>
-            <element signature="e#0#74#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/LICENSE">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-5185" />
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/coverage.json">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/contracts/mocks/BasicTokenMock.sol">
       <provider selected="true" editor-type-id="text-editor">
@@ -767,13 +769,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/contracts/pools/Admin.sol">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-105">
@@ -781,46 +776,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/contracts/mocks/ForceEther.sol">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/contracts/PoolParty.sol">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-255">
           <caret line="11" column="31" selection-start-line="11" selection-start-column="31" selection-end-line="11" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="64">
-            <caret line="69" column="88" selection-start-line="69" selection-start-column="88" selection-end-line="69" selection-end-column="88" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/HasNoEther.test.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-259" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/HasNoTokens.test.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/Ownable.test.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/Ownable.behaviour.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-304" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/PoolParty-User-Test.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1826">
-          <caret column="7" selection-start-column="7" selection-end-column="7" />
         </state>
       </provider>
     </entry>
@@ -831,17 +790,85 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
+    <entry file="file://$PROJECT_DIR$/contracts/pools/Pool.sol">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="27" column="28" lean-forward="true" selection-start-line="27" selection-start-column="28" selection-end-line="27" selection-end-column="28" />
+        <state relative-caret-position="7995">
+          <caret line="533" column="28" selection-start-line="533" selection-start-column="28" selection-end-line="533" selection-end-column="28" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/contracts/pools/Pool.sol">
+    <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5841">
-          <caret line="533" column="28" lean-forward="true" selection-start-line="533" selection-start-column="28" selection-end-line="533" selection-end-column="28" />
+        <state relative-caret-position="75">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/Ownable.behaviour.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="555">
+          <caret line="37" selection-start-line="37" selection-end-line="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/helpers/web3.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" selection-start-line="10" selection-end-line="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/test.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="495">
+          <caret line="33" column="107" selection-start-line="33" selection-start-column="107" selection-end-line="33" selection-end-column="107" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/ethjs-abi/dist/ethjs-abi.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-8457">
+          <caret line="4658" column="2" selection-start-line="4658" selection-start-column="2" selection-end-line="4658" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/HasNoEther.test.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="8" selection-start-line="15" selection-start-column="8" selection-end-line="15" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/PoolParty-TokenDistribution-Test.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1605">
+          <caret line="107" column="10" lean-forward="true" selection-start-line="107" selection-start-column="10" selection-end-line="107" selection-end-column="10" />
+          <folding>
+            <element signature="e#0#78#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/PoolParty-User-Test.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="975">
+          <caret line="151" column="10" selection-start-line="151" selection-start-column="10" selection-end-line="151" selection-end-column="10" />
+          <folding>
+            <element signature="e#0#78#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="1035">
+            <caret line="69" selection-start-line="69" selection-end-line="69" />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>
