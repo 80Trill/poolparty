@@ -7,13 +7,11 @@ When the pool is in the Completed stage, users may call any of the three claim m
 From the project root.
 `npm install`
 
-Run truffle tests:
-`$ sh scripts/test.sh`
+Run truffle tests: `$ sh scripts/test.sh`
 
-Run tests with coverage:
-`$ sh scripts/coverage.sh`
+Run tests with coverage: `$ sh scripts/coverage.sh`
 
-Run Solium linter:
+Run Solium linter: `$ npm install -g solium` ->
 `$ solium -d contracts`
 
 
