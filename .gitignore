@@ -7,3 +7,6 @@ coverage.json
 .DS_Store
 coverage
 .idea
+
+# truffle
+.node-xmlhttprequest-*

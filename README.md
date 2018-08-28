@@ -3,6 +3,8 @@ A Solidity smart contract for creating pools for ICOs. Anyone can create a custo
 In the event that the party is cancelled, all users will be able to claim back their Ether that is currently being held inside of the pool.  Once one of the admins has sent all of the Ether to the ICO, and collected the tokens, the pool will be set to Completed. This is the point where the admins fee is processed and sent out.
 When the pool is in the Completed stage, users may call any of the three claim methods as a means to collect the tokens currently available to them.
 
+Dapp - https://80Trill.github.io/poolparty-dapp/
+
 ## Running Tests
 From the project root.
 `npm install`
