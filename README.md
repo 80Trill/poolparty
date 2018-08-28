@@ -7,7 +7,9 @@ Dapp - https://80Trill.github.io/poolparty-dapp/
 
 ## Running Tests
 From the project root.
-`npm install`
+`$ npm install`
+
+*Ensure there is no ganache-cli currently running
 
 Run truffle tests: `$ sh scripts/test.sh`
 
