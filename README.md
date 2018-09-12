@@ -1,9 +1,8 @@
 # PoolParty
-A Solidity smart contract for creating pools for ICOs. Anyone can create a custom pool contract with a variety of configurations detailed below. During the Open state of the contract, users may make contributions and process refunds.
-In the event that the party is cancelled, all users will be able to claim back their Ether that is currently being held inside of the pool.  Once one of the admins has sent all of the Ether to the ICO, and collected the tokens, the pool will be set to Completed. This is the point where the admins fee is processed and sent out.
-When the pool is in the Completed stage, users may call any of the three claim methods as a means to collect the tokens currently available to them.
+A Solidity smart contract factory used for issuing unique and highly customizable ICO pooling instances. 
+The PoolParty Dapp allows anyone to deploy their own contracts for gathering Ether and distributing any 
+number of ERC20 compatible tokens, through an unlimited number of vesting periods.
 
-Dapp - https://80Trill.github.io/poolparty-dapp/
 
 ## Running Tests
 From the project root.
@@ -18,74 +17,19 @@ Run tests with coverage: `$ sh scripts/coverage.sh`
 Run Solium linter: `$ npm install -g solium` ->
 `$ solium -d contracts`
 
+## Resources
+The Dapp is currently in Beta, and is only active on the Rinkeby Test Network for now. 
+We encourage users to test out its features and provide any feedback they may have.
 
+- [Dapp](https://80Trill.github.io/poolparty-dapp/)
+- [General guide](https://medium.com/80trill/poolparty-e525416f3be0)
+- [User guide](https://medium.com/80trill/poolparty-user-guide-95ff4bd9471d)
+- [Admin guide](https://medium.com/80trill/poolparty-administrators-guide-1a2784a4ea76)
+- [Etherscan](https://rinkeby.etherscan.io/address/0xfeb4993f82a5701fe6a63e2df4fd711d617c41d8) 
 
-## Creating a Pool
-To create a pool call the `createPool(address[] admins, uint256[] configsUint256, bool[] configsBool)` method.
-
-#### admins[]
-The `admins` array is a list of admin wallet addresses.
-
-Requires the creator address is inside of the array, there are no duplicate addresses, and there are no 0x0 addresses.
-
-#### configsUint256[]
-The `configsUint256` array is an ordered list of configurations for the pool.
-
-- `MAX_ALLOCATION`: in wei
-- `MIN_CONTRIBUTION`: in wei
-- `MAX_CONTRIBUTION`: in wei
-- `ADMIN_FEE_PERCENT_DECIMALS`:  number of decimal places for the `ADMIN_FEE_PERCENTAGE` --- capped at 5 decimal places
-- `ADMIN_FEE_PERCENTAGE`: uses `ADMIN_FEE_PERCENT_DECIMALS` for the decimal places.
-
-#### configsBool[]
-The `configsBool` array is an ordered list of boolean configurations for the pool.
-
-- `HAS_WHITELIST`: true when the pool requires a whitelist
-- `ADMIN_FEE_PAYOUT_TOKENS`: true when the admin will take its fee in tokens, false when the admin will take a portion of the Ether raised
-
-
-## User Functionality
-- Send Ether directly to the pool contract.
-- Deposit funds by calling deposit on behalf of someone else, in the amount of the msg.value: `deposit(address userAddress)`.
-
-- Claim all of the available tokens relative to their contribution to the pool: `claim()`.
-- Trigger a claim event on the behalf of a specified address: `claimAddress(address addressToClaim)`.
-- Trigger a claim event for a corresponding subset of user addresses located in the contract: `claimManyAddresses(uint256 _startIndex, uint256 _numberOfAddresses)`.
-
-- Refund all their Ether contributions from a pool back into their wallet: `refund()`.
-- Trigger a refund event for a corresponding subset of user addresses located in the contract: `refundManyAddresses(uint256 _startIndex, uint256 _numberOfAddresses)`.
-
-- Claim all of the available reimbursements for the msg.sender: `reimbursement()`.
-- Claim all of the available reimbursements on the behalf of a specified address: `claimReimbursement(address addressToClaim)`.
-- Trigger a claim Reimbursement event for a corresponding subset of user addresses located in the contract: `claimManyReimbursements(uint256 _startIndex, uint256 _numberOfAddresses)`.
-
-## Admin Functionality
-- All of the same functionality of users in addition to the following...
-
-- Ability to set the pools state:
-    - `setPoolToOpen()`
-    - `setPoolToClosed()`
-    - `setPoolToCancelled()`
-- Transfers the Ether out of the contract to the given address parameter: `transferWei(address contractAddress)`.
-- Refund a given address for all the Ether they have contributed: `refundAddress(address userAddress)`.
-- Add a list of addresses to the whitelist if enabled `addAddressesToWhitelist(address[] addr)`.
-- Removes a user from the whitelist and processes a refund: `removeAddressFromWhitelistAndRefund(address addr)`.
-- Provide a reimbursement, in the amount of the msg.value, for all participants of the pool to claim at a pro-rata rate: `projectRefund()`.
-- Set the maximum allocation for the contract: `setMaxAllocation(uint256 max)`.
-- Set the minimum and maximum contributions for the contract: `setMinMaxContributions(uint256 min, uint256 max)`.
-- Remove an ERC20Address from the list of tokens: `removeToken(address tokenAddress)`.
-- Remove an ERC20Address for the users to claim from: `addToken(address tokenAddress)`.
-
-## DAPP Integration
-There are five methods used strictly for the DAPP:
-- getTokenAddressArray() - returns a list of all the token addresses corresponding with this pool.
-- getAmountOfTokens() - returns the amount of tokens addresses corresponding with this pool.
-- getSwimmersListArray() - returns a list of all the swimmers addresses corresponding with this pool.
-- getAmountOfSwimmers() - returns the amount of swimmer addresses corresponding with this pool.
-- getadminAddressArray() - returns the admins addresses corresponding with this pool.
 
 ## Libraries Used
-The following OpenZeppelin Solidity contracts were used in this project:
+The following OpenZeppelin 1.11.0 Solidity contracts were used in this project:
 - HasNoTokens.sol
 - HasNoContracts.sol
 - SafeMath.sol
@@ -93,8 +37,10 @@ The following OpenZeppelin Solidity contracts were used in this project:
 
 
 ## Admin Responsibility/User Risks
-This contract has been thoroughly tested for potential vulnerabilities inside of its functionality. However, the admin is responsible for anything external, such as adding appropriate ERC20 compliant addresses.
-The nature of this contract does not prevent against the underhanded activities of the given administrators, and at any point they can act maliciously. This is a substitute for maintaining spreadsheets and organizing complex ICO distributions.
+This contract has been thoroughly tested for potential vulnerabilities. 
+However, the admin is responsible for anything external, including but not limited to transferring the pooled funds, 
+and adding appropriate ERC20 compliant tokens. The nature of this contract does not prevent against underhanded 
+activities of the given administrators, and at any point they can act maliciously. You must trust your admin.
 
 
 ## License
