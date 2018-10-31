@@ -18,14 +18,11 @@ Run Solium linter: `$ npm install -g solium` ->
 `$ solium -d contracts`
 
 ## Resources
-The Dapp is currently in Beta, and is only active on the Rinkeby Test Network for now. 
-We encourage users to test out its features and provide any feedback they may have.
-
 - [Dapp](https://80Trill.github.io/poolparty-dapp/)
 - [General guide](https://medium.com/80trill/poolparty-e525416f3be0)
 - [User guide](https://medium.com/80trill/poolparty-user-guide-95ff4bd9471d)
 - [Admin guide](https://medium.com/80trill/poolparty-administrators-guide-1a2784a4ea76)
-- [Etherscan](https://rinkeby.etherscan.io/address/0xfeb4993f82a5701fe6a63e2df4fd711d617c41d8) 
+- [Etherscan](https://etherscan.io/address/0x73adf3ffe3471ba872368383c9c827da0b2512ef) 
 
 
 ## Libraries Used
